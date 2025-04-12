@@ -1,15 +1,18 @@
-import { useSelector } from '../../services/store';
-
 import styles from './constructor-page.module.css';
 
 import { BurgerIngredients } from '../../components';
 import { BurgerConstructor } from '../../components';
 import { Preloader } from '../../components/ui';
 import { FC } from 'react';
+import { getIngredientsLoading } from '../../services/slices/ingredients/ingredientSlice';
+import { useSelector } from '../../services/store';
+import { useLocation } from 'react-router-dom';
 
 export const ConstructorPage: FC = () => {
-  /** TODO: взять переменную из стора */
-  const isIngredientsLoading = false;
+  const location = useLocation();
+  const isLoadingingredients = useSelector(getIngredientsLoading);
+  /** TODO: взять переменную из стора !ок */
+  const isIngredientsLoading = isLoadingingredients;
 
   return (
     <>

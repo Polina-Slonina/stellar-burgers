@@ -37,7 +37,7 @@ const Protected = ({ onlyUnAuth = false, children }: ProtectedRouteProps) => {
   if (onlyUnAuth && user) {
     // если пользователь на странице авторизации и данных в хранилище нет, то делаем редирект
     const from = location.state?.from || { pathname: '/' };
-    return <Navigate to={from} state={{ From: location }} />;
+    return <Navigate to={from} state={{ from: location }} />;
   }
 
   return children;

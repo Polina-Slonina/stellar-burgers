@@ -16,9 +16,10 @@ import {
   AppHeader,
   InfoModal,
   IngredientDetails,
+  Modal,
   OrderInfo
 } from '@components';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from '../../services/store';
 import { FC, useEffect } from 'react';
 import {
@@ -31,6 +32,7 @@ import { checkUserAuth } from '../../services/slices/user/actionsUser';
 const App: FC = () => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
   const backgroundLocation = location.state?.background;
 
   useEffect(() => {
@@ -38,39 +40,21 @@ const App: FC = () => {
     dispatch(fetchIngredients()); // Вызываем асинхронную санкцию для получения треков
   }, [dispatch]);
 
+  const onClose = () => {
+    navigate(-1); // Возврат к предыдущей странице
+  };
+
   return (
     <div className={styles.app}>
       <AppHeader />
       <Routes location={backgroundLocation || location}>
         <Route path='*' element={<NotFound404 />} />
         <Route path='/' element={<ConstructorPage />} />
-        <Route
-          path='/ingredients/:id'
-          element={
-            <InfoModal>
-              <IngredientDetails />
-            </InfoModal>
-          }
-        />
-        <Route
-          path='/feed/:number'
-          element={
-            <InfoModal>
-              <OrderInfo />
-            </InfoModal>
-          }
-        />
+        <Route path='/ingredients/:id' element={<IngredientDetails />} />
+        <Route path='/feed/:number' element={<OrderInfo />} />
         <Route
           path='/profile/orders/:number'
-          element={
-            <OnlyAuth
-              children={
-                <InfoModal>
-                  <OrderInfo />
-                </InfoModal>
-              }
-            />
-          }
+          element={<OnlyAuth children={<OrderInfo />} />}
         />
         <Route path='/feed' element={<Feed />} />
         <Route path='/login' element={<OnlyUnAuth children={<Login />} />} />

@@ -4,14 +4,5 @@ import { getCookie } from '../../../utils/cookie';
 
 export const fetchFeedsUser = createAsyncThunk(
   'feedsUser/fetchFeedsUser',
-  async () => {
-    try {
-      const res = await getOrdersApi();
-      // getCookie('accessToken');
-      // getCookie('refreshToken');
-      return res;
-    } catch (error) {
-      throw error;
-    }
-  }
+  async () => await getOrdersApi()
 );

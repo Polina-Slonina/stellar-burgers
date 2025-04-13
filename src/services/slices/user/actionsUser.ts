@@ -13,65 +13,42 @@ import { authCheck } from './userSlice';
 import { TUser } from '@utils-types';
 
 export const fetchUser = createAsyncThunk('user/fetchUser', async () => {
-  try {
-    const res = await getUserApi();
-    getCookie('accessToken');
-    localStorage.getItem('refreshToken');
-    return res;
-  } catch (error) {
-    throw error;
-  }
+  const res = await getUserApi();
+  getCookie('accessToken');
+  localStorage.getItem('refreshToken');
+  return res;
 });
 
 export const fetchLoginUser = createAsyncThunk(
   'user/fetchUser',
   async (data: TLoginData) => {
-    try {
-      const res = await loginUserApi(data);
-      setCookie('accessToken', res.accessToken);
-      localStorage.setItem('refreshToken', res.refreshToken);
-      return res;
-    } catch (error) {
-      throw error;
-    }
+    const res = await loginUserApi(data);
+    setCookie('accessToken', res.accessToken);
+    localStorage.setItem('refreshToken', res.refreshToken);
+    return res;
   }
 );
 
 export const fetchRegisterUser = createAsyncThunk(
   'user/fetchRegisterUser',
   async (data: TRegisterData) => {
-    try {
-      const res = await registerUserApi(data);
-      setCookie('accessToken', res.accessToken);
-      localStorage.setItem('refreshToken', res.refreshToken);
-      return res;
-    } catch (error) {
-      throw error;
-    }
+    const res = await registerUserApi(data);
+    setCookie('accessToken', res.accessToken);
+    localStorage.setItem('refreshToken', res.refreshToken);
+    return res;
   }
 );
 
 export const fetchUpdateUser = createAsyncThunk(
   'user/fetchUpdateUser',
-  async (data: TRegisterData) => {
-    try {
-      const res = await updateUserApi(data);
-      return res;
-    } catch (error) {
-      throw error;
-    }
-  }
+  updateUserApi
 );
 
 export const fetchLogout = createAsyncThunk('user/fetchLogout', async () => {
-  try {
-    const res = await logoutApi();
-    deleteCookie('accessToken');
-    localStorage.clear();
-    return res;
-  } catch (error) {
-    throw error;
-  }
+  const res = await logoutApi();
+  deleteCookie('accessToken');
+  localStorage.clear();
+  return res;
 });
 
 export const checkUserAuth = createAsyncThunk(

@@ -1,4 +1,4 @@
-import { getFeedsApi, getOrdersApi } from '@api';
+import { getFeedsApi, getOrdersApi } from '../../../utils/burger-api';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { getCookie } from '../../../utils/cookie';
 

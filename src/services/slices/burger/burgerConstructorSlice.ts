@@ -7,13 +7,13 @@ interface BurgerConstructorState {
   ingredients: TConstructorIngredient[];
 }
 
-const initialState: BurgerConstructorState = {
+export const initialState: BurgerConstructorState = {
   bun: null,
   ingredients: []
 };
 
-export const burgerconstructorSlice = createSlice({
-  name: 'burgerconstructor',
+export const burgerConstructorSlice = createSlice({
+  name: 'burgerConstructor',
   initialState,
   reducers: {
     setBun(state, action: PayloadAction<TIngredient>) {
@@ -79,7 +79,7 @@ export const burgerconstructorSlice = createSlice({
 });
 
 export const { getIngredients, getConstructorItems } =
-  burgerconstructorSlice.selectors;
+  burgerConstructorSlice.selectors;
 
 // Экспорт действий
 export const {
@@ -89,7 +89,7 @@ export const {
   clearIngredients,
   moveIngredientUp,
   moveIngredientDown
-} = burgerconstructorSlice.actions;
+} = burgerConstructorSlice.actions;
 
 // Экспорт редьюсера
-export default burgerconstructorSlice.reducer;
+export default burgerConstructorSlice.reducer;

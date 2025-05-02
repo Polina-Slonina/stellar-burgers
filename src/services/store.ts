@@ -16,18 +16,18 @@ import ingredientReducer, {
 import feedsReducer, { feedsSlice } from './slices/feeds/feedsSlice';
 import userReducer, { userSlice } from './slices/user/userSlice';
 import burgerconstructorReducer, {
-  burgerconstructorSlice
+  burgerConstructorSlice
 } from './slices/burger/burgerConstructorSlice';
 import orderReducer, { orderSlice } from './slices/order/orderSlice';
 import { feedsUserSlice } from './slices/feedsUser/feedsUserSlice';
 
 // Заменить на импорт настоящего редьюсера
 
-const rootReducer = combineSlices(
+export const rootReducer = combineSlices(
   ingredientSlice,
   feedsSlice,
   userSlice,
-  burgerconstructorSlice,
+  burgerConstructorSlice,
   orderSlice,
   feedsUserSlice
 );

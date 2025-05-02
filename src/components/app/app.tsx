@@ -19,7 +19,13 @@ import {
   Modal,
   OrderInfo
 } from '@components';
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import {
+  Route,
+  Routes,
+  useLocation,
+  useMatch,
+  useNavigate
+} from 'react-router-dom';
 import { useDispatch } from '../../services/store';
 import { FC, useEffect } from 'react';
 import {
@@ -34,6 +40,9 @@ const App: FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const backgroundLocation = location.state?.background;
+  const profileMatch = useMatch('/profile/orders/:number')?.params.number;
+  const feedMatch = useMatch('/feed/:number')?.params.number;
+  const orderNumber = profileMatch || feedMatch;
 
   useEffect(() => {
     dispatch(checkUserAuth());
@@ -51,10 +60,35 @@ const App: FC = () => {
         <Route path='*' element={<NotFound404 />} />
         <Route path='/' element={<ConstructorPage />} />
         <Route path='/ingredients/:id' element={<IngredientDetails />} />
-        <Route path='/feed/:number' element={<OrderInfo />} />
+        <Route
+          path='/feed/:number'
+          element={
+            <div className={styles.detailPageWrap}>
+              <p
+                className={`text text_type_digits-default ${styles.detailHeader}`}
+              >
+                #{orderNumber && orderNumber.padStart(6, '0')}
+              </p>
+              <OrderInfo />
+            </div>
+          }
+        />
         <Route
           path='/profile/orders/:number'
-          element={<OnlyAuth children={<OrderInfo />} />}
+          element={
+            <OnlyAuth
+              children={
+                <div className={styles.detailPageWrap}>
+                  <p
+                    className={`text text_type_digits-default ${styles.detailHeader}`}
+                  >
+                    #{orderNumber && orderNumber.padStart(6, '0')}
+                  </p>
+                  <OrderInfo />
+                </div>
+              }
+            />
+          }
         />
         <Route path='/feed' element={<Feed />} />
         <Route path='/login' element={<OnlyUnAuth children={<Login />} />} />
@@ -82,25 +116,31 @@ const App: FC = () => {
           <Route
             path='/ingredients/:id'
             element={
-              <InfoModal>
+              <Modal title='Детали ингредиента' onClose={onClose}>
                 <IngredientDetails />
-              </InfoModal>
+              </Modal>
             }
           />
           <Route
             path='/feed/:number'
             element={
-              <InfoModal>
+              <Modal
+                title={`#${orderNumber && orderNumber.padStart(6, '0')}`}
+                onClose={onClose}
+              >
                 <OrderInfo />
-              </InfoModal>
+              </Modal>
             }
           />
           <Route
             path='/profile/orders/:number'
             element={
-              <InfoModal>
+              <Modal
+                title={`#${orderNumber && orderNumber.padStart(6, '0')}`}
+                onClose={onClose}
+              >
                 <OnlyAuth children={<OrderInfo />} />
-              </InfoModal>
+              </Modal>
             }
           />
         </Routes>

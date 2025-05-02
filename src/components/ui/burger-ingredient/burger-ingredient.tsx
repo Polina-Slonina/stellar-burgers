@@ -15,11 +15,16 @@ export const BurgerIngredientUI: FC<TBurgerIngredientUIProps> = memo(
     const { image, price, name, _id } = ingredient;
 
     return (
-      <li className={styles.container}>
+      <li
+        className={styles.container}
+        data-cy='ingredient-item'
+        data-type={ingredient.type}
+      >
         <Link
           className={styles.article}
           to={`/ingredients/${_id}`}
           state={{ background: locationState, modal: true }}
+          data-cy='ingredient-link'
         >
           {count && <Counter count={count} />}
           <img className={styles.img} src={image} alt='картинка ингредиента.' />

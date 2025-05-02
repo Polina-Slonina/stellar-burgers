@@ -1,7 +1,7 @@
 import { FC, useEffect, useMemo } from 'react';
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
-import { TIngredient } from '@utils-types';
+import { TIngredient, TOrder } from '@utils-types';
 import { useDispatch, useSelector } from '../../services/store';
 import { useParams } from 'react-router-dom';
 import { fetchgetOrderByNumber } from '../../services/slices/order/actionsOrder';

@@ -15,7 +15,7 @@ interface UserState {
   error: string | null;
 }
 
-const initialState: UserState = {
+export const initialState: UserState = {
   isAuthChecked: false,
   user: null,
   loading: false,

@@ -12,7 +12,7 @@ import { getUser } from '../../services/slices/user/userSlice';
 import {
   clearOrderModalData,
   getOrder,
-  getOrderSuccess,
+  getOrderRequest,
   setOrderRequest
 } from '../../services/slices/order/orderSlice';
 
@@ -23,7 +23,7 @@ export const BurgerConstructor: FC = () => {
   const constructorItems = useSelector(getConstructorItems);
   const user = useSelector(getUser);
 
-  const orderRequest = useSelector(getOrderSuccess);
+  const orderRequest = useSelector(getOrderRequest);
 
   const orderModalData = useSelector(getOrder);
 
@@ -31,7 +31,7 @@ export const BurgerConstructor: FC = () => {
   useEffect(() => {
     const keyDownHandler = (event: KeyboardEvent) => {
       if (event.key === 'Escape' && orderRequest) {
-        dispatch(setOrderRequest());
+        // dispatch(setOrderRequest());
         dispatch(clearOrderModalData());
         dispatch(clearIngredients());
         // Закрываем модальное окно при нажатии Esc
@@ -62,7 +62,7 @@ export const BurgerConstructor: FC = () => {
 
   const closeOrderModal = () => {
     dispatch(clearOrderModalData());
-    dispatch(setOrderRequest());
+    // dispatch(setOrderRequest());
     dispatch(clearIngredients());
   };
 

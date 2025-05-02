@@ -5,15 +5,15 @@ import { fetchgetOrderByNumber, fetchOrderBurger } from './actionsOrder';
 interface OrderState {
   order: TOrder | null;
   name: string;
-  success: boolean;
+  orderRequest: boolean;
   loading: boolean;
   error: string | null;
 }
 
-const initialState: OrderState = {
+export const initialState: OrderState = {
   order: null,
   name: '',
-  success: false,
+  orderRequest: false,
   loading: false,
   error: null
 };
@@ -23,7 +23,7 @@ export const orderSlice = createSlice({
   initialState,
   reducers: {
     setOrderRequest: (state) => {
-      state.success = !state.success;
+      state.orderRequest = !state.orderRequest;
     },
     clearOrderModalData: (state) => {
       state.order = null;
@@ -33,7 +33,7 @@ export const orderSlice = createSlice({
     getOrder: (state) => state.order,
     getName: (state) => state.name,
     getOrderLoading: (state) => state.loading,
-    getOrderSuccess: (state) => state.success,
+    getOrderRequest: (state) => state.orderRequest,
     getOrderError: (state) => state.error
   },
   extraReducers: (builder) => {
@@ -50,6 +50,7 @@ export const orderSlice = createSlice({
         state.loading = false;
         state.order = action.payload.order;
         state.name = action.payload.name;
+        state.orderRequest = false;
       })
       .addCase(fetchgetOrderByNumber.fulfilled, (state, action) => {
         state.loading = false;
@@ -63,7 +64,7 @@ export const {
   getName,
   getOrderLoading,
   getOrderError,
-  getOrderSuccess
+  getOrderRequest
 } = orderSlice.selectors;
 
 export const { setOrderRequest, clearOrderModalData } = orderSlice.actions;
